@@ -9,6 +9,7 @@ import (
 	"syscall"
 )
 
+// Challenge: Read a file on disk that does not exist and handle the error.
 func main() {
 	_, err := os.ReadFile("nonexistent.txt")
 	if err == nil {

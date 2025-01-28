@@ -1,0 +1,47 @@
+# .golangci.yml
+# Configuração do golangci-lint para verificar práticas idiomáticas de tratamento de erros em Go
+# Referência: https://golangci-lint.run/usage/linters
+
+linters:
+  # Habilita os linters desejados
+  enable:
+    # errcheck:
+    # Verifica se os erros retornados por funções são devidamente tratados ou não são ignorados.
+    # Evita que erros importantes sejam negligenciados, garantindo que o fluxo de execução lide com possíveis falhas.
+    - errcheck
+
+    # staticcheck:
+    # Conjunto abrangente de análises estáticas que inclui verificações para práticas de tratamento de erros,
+    # entre outras melhorias no código.
+    # Detecta uma variedade de problemas potenciais, incluindo uso incorreto de erros, redundâncias e possíveis otimizações.
+    - staticcheck
+
+    # goerr113:
+    # Assegura que os erros são criados usando `fmt.Errorf` com o verbo `%w` para permitir o wrapping adequado.
+    # Facilita a criação de erros encadeados que podem ser verificados com `errors.Is` e `errors.As`.
+    - goerr113
+
+    # wrapcheck:
+    # Garante que os erros retornados pelas funções estejam sendo devidamente embrulhados (wrapped)
+    # para manter o contexto das falhas.
+    # Mantém a rastreabilidade dos erros através do stack de chamadas, melhorando a depuração e o tratamento de erros.
+    - wrapcheck
+
+    # gocritic:
+    # Oferece uma ampla gama de verificações, incluindo práticas recomendadas para tratamento de erros.
+    # Ajuda a identificar padrões subótimos e sugere melhorias para tornar o código mais idiomático.
+    - gocritic
+
+    # nolintlint:
+    # Analisa comentários `//nolint` para garantir que são utilizados corretamente,
+    # especialmente em contexto de tratamento de erros.
+    # Evita o uso indiscriminado de `nolint`, garantindo que as exceções sejam justificadas.
+    - nolintlint
+
+# Configurações adicionais para tratar issues específicas
+issues:
+  exclude-rules:
+    # Exemplo: Ignorar issues em arquivos de teste
+    - path: _test\.go
+      text: "ignore specific issues in test files"
+      # Adicione mais regras de exclusão conforme necessário
