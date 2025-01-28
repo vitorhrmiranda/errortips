@@ -41,10 +41,17 @@ func main() {
 		log.Printf("#3 - Check error value: (%T) %v\n", err, err)
 	}
 
+	// ErrMyDomainNotFound is a domain error
+	ErrMyDomainNotFound := errors.New("my domain not found")
 	// #4 -> encapsulate error
 	// https://go.dev/blog/go1.13-errors
-	wrappedErr := fmt.Errorf("read file in main: %w", err)
+	wrappedErr := fmt.Errorf("%w: %w", ErrMyDomainNotFound, err)
 	if errors.Is(wrappedErr, os.ErrNotExist) {
-		log.Printf("#4 - Check wrapped err value: (%T) %v\n", err, err)
+		log.Printf("#4 - Check wrapped err value: (%T) %v\n", wrappedErr, wrappedErr)
 	}
+	if errors.Is(wrappedErr, ErrMyDomainNotFound) {
+		log.Printf("#5 - Check domain err value: (%T) %v\n", wrappedErr, wrappedErr)
+	}
+
+	// error.As()
 }
